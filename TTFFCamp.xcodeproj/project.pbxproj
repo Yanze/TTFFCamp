@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D0B59361ECAA5B700EB95CB /* BackButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B59351ECAA5B700EB95CB /* BackButtonDelegate.swift */; };
+		9D9C947D1EC56372004AA8ED /* Plant2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9C947C1EC56372004AA8ED /* Plant2.swift */; };
+		9D9C947F1EC563D5004AA8ED /* PublicFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9C947E1EC563D5004AA8ED /* PublicFunctions.swift */; };
 		AA8A24DDDAA2005F137600CA /* Pods_TTFFCamp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9626B18E7273A054E9BBC38 /* Pods_TTFFCamp.framework */; };
 		E01A31C91CA1B181001EB74A /* PlantListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01A31C81CA1B181001EB74A /* PlantListTableViewController.swift */; };
 		E01E57F01C90EDA9008267EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01E57EF1C90EDA9008267EC /* AppDelegate.swift */; };
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		4A6EC689F3C0F53F9389C862 /* Pods-TTFFCamp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTFFCamp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TTFFCamp/Pods-TTFFCamp.release.xcconfig"; sourceTree = "<group>"; };
 		51C93434E05113EBB271C567 /* Pods-TTFFCamp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTFFCamp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TTFFCamp/Pods-TTFFCamp.debug.xcconfig"; sourceTree = "<group>"; };
+		9D0B59351ECAA5B700EB95CB /* BackButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButtonDelegate.swift; sourceTree = "<group>"; };
+		9D9C947C1EC56372004AA8ED /* Plant2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plant2.swift; sourceTree = "<group>"; };
+		9D9C947E1EC563D5004AA8ED /* PublicFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicFunctions.swift; sourceTree = "<group>"; };
 		C9626B18E7273A054E9BBC38 /* Pods_TTFFCamp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TTFFCamp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E01A31C81CA1B181001EB74A /* PlantListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlantListTableViewController.swift; sourceTree = "<group>"; };
 		E01E57EC1C90EDA9008267EC /* TTFFCamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTFFCamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +103,7 @@
 				E01E57EF1C90EDA9008267EC /* AppDelegate.swift */,
 				E01E57FB1C90EDA9008267EC /* Info.plist */,
 				E01E57F31C90EDA9008267EC /* Main.storyboard */,
+				9D0B59351ECAA5B700EB95CB /* BackButtonDelegate.swift */,
 				E01E57F81C90EDA9008267EC /* LaunchScreen.storyboard */,
 				E01E57F61C90EDA9008267EC /* Assets.xcassets */,
 				E0D571831C96365E005A7856 /* SupportingFiles */,
@@ -119,6 +126,8 @@
 			children = (
 				E0D571891C963785005A7856 /* Database.swift */,
 				E0D5718B1C963785005A7856 /* Plant.swift */,
+				9D9C947C1EC56372004AA8ED /* Plant2.swift */,
+				9D9C947E1EC563D5004AA8ED /* PublicFunctions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -141,12 +150,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E01E57FE1C90EDA9008267EC /* Build configuration list for PBXNativeTarget "TTFFCamp" */;
 			buildPhases = (
-				0571F74A6FB21A02E8FF91DD /* Check Pods Manifest.lock */,
+				0571F74A6FB21A02E8FF91DD /* [CP] Check Pods Manifest.lock */,
 				E01E57E81C90EDA9008267EC /* Sources */,
 				E01E57E91C90EDA9008267EC /* Frameworks */,
 				E01E57EA1C90EDA9008267EC /* Resources */,
-				3DFCF2ABA9652CC6BD8B19FF /* Embed Pods Frameworks */,
-				1B52305A202DDE06F2BA1018 /* Copy Pods Resources */,
+				3DFCF2ABA9652CC6BD8B19FF /* [CP] Embed Pods Frameworks */,
+				1B52305A202DDE06F2BA1018 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -164,12 +173,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "The Taylor Family Foundation";
 				TargetAttributes = {
 					E01E57EB1C90EDA9008267EC = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 5Q7JKYA44W;
+						DevelopmentTeam = 7ZCT66FZW7;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -205,29 +215,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0571F74A6FB21A02E8FF91DD /* Check Pods Manifest.lock */ = {
+		0571F74A6FB21A02E8FF91DD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		1B52305A202DDE06F2BA1018 /* Copy Pods Resources */ = {
+		1B52305A202DDE06F2BA1018 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,14 +245,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TTFFCamp/Pods-TTFFCamp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3DFCF2ABA9652CC6BD8B19FF /* Embed Pods Frameworks */ = {
+		3DFCF2ABA9652CC6BD8B19FF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,7 +269,10 @@
 			files = (
 				E0D5718C1C963785005A7856 /* Database.swift in Sources */,
 				E01E58021C90F80F008267EC /* PlantInfoViewController.swift in Sources */,
+				9D9C947D1EC56372004AA8ED /* Plant2.swift in Sources */,
 				E0D571871C96365E005A7856 /* SWRevealViewController.m in Sources */,
+				9D0B59361ECAA5B700EB95CB /* BackButtonDelegate.swift in Sources */,
+				9D9C947F1EC563D5004AA8ED /* PublicFunctions.swift in Sources */,
 				E0D571801C962033005A7856 /* HiddenMenuViewController.swift in Sources */,
 				E01A31C91CA1B181001EB74A /* PlantListTableViewController.swift in Sources */,
 				E0D5718E1C963785005A7856 /* Plant.swift in Sources */,
@@ -303,8 +316,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -348,8 +363,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -368,6 +385,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -381,6 +399,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7ZCT66FZW7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -392,6 +411,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TTFFCamp/SupportingFiles/TTFFCamp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -403,6 +423,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7ZCT66FZW7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -413,6 +434,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TTFFCamp/SupportingFiles/TTFFCamp-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

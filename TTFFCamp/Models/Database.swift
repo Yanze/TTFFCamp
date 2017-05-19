@@ -11,21 +11,21 @@ import Foundation
 class Database {
     // get the full path to the Documents folder
     static func documentsDirectory() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         return paths[0]
     }
     
     // get the full path to file of project
-    static func dataFilePath(schema: String) -> String {
+    static func dataFilePath(_ schema: String) -> String {
         return "\(Database.documentsDirectory())/\(schema)"
     }
     
-    static func save(arrayOfObjects: [AnyObject], toSchema: String, forKey: String) {
+    static func save(_ arrayOfObjects: [AnyObject], toSchema: String, forKey: String) {
         let data = NSMutableData()
-        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
-        archiver.encodeObject(arrayOfObjects, forKey: "\(forKey)")
+        let archiver = NSKeyedArchiver(forWritingWith: data)
+        archiver.encode(arrayOfObjects, forKey: "\(forKey)")
         archiver.finishEncoding()
-        data.writeToFile(Database.dataFilePath(toSchema), atomically: true)
+        data.write(toFile: Database.dataFilePath(toSchema), atomically: true)
         //print("saved data", data)
     }
     
@@ -34,10 +34,10 @@ class Database {
         var plants = [Plant]()
         
         let path = Database.dataFilePath(Plant.schema)
-        if NSFileManager.defaultManager().fileExistsAtPath(path) {
-            if let data = NSData(contentsOfFile: path) {
-                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-                plants = unarchiver.decodeObjectForKey(Plant.key) as! [Plant]
+        if FileManager.default.fileExists(atPath: path) {
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
+                let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+                plants = unarchiver.decodeObject(forKey: Plant.key) as! [Plant]
                 unarchiver.finishDecoding()
             }
         }

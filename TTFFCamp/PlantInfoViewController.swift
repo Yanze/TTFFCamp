@@ -36,27 +36,35 @@ class PlantInfoViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     var singlePlant = Plant()
     var allPlants: [Plant] = []
     
-    var detectedText = ""
+    var detectedText: String?
     
     
     
     override func viewDidLoad() {
+        print("PlantInfoViewController loaded")
         super.viewDidLoad()
-        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        print("got past super view did load")
+        //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        print("got past addGesture")
         
         self.navigationItem.setHidesBackButton(true, animated: false)
-        
+        print("got past navigationitem")
         customButtons()
-        
+        print("got past custombuttons")
         // get all plants from local storage
         allPlants = Database.all()
-        getPlantByName(detectedText)
-        initializeScrollView()
+        print("got past allPlants")
+        if let unwrappedGetPlantByName = detectedText {
+            print("inside unwrappedGetPlantByName")
+            getPlantByName(unwrappedGetPlantByName)
+            initializeScrollView()
+        }
+        print("got past if let")
         
     }
     
-    override func setEditing(editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
         self.navigationItem.setHidesBackButton(editing, animated: animated)
     }
     
@@ -65,17 +73,17 @@ class PlantInfoViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         for i in 0 ..< singlePlant.images.count {
             let label = UILabel(frame: CGRect(x: 120 + (i*500), y: 280, width: 250, height: 40))
             label.text = singlePlant.captions[i]
-            label.textColor = UIColor.whiteColor()
-            label.textAlignment = .Center
+            label.textColor = UIColor.white
+            label.textAlignment = .center
             label.adjustsFontSizeToFitWidth = true
             label.font = UIFont(name: "Verdana", size: 20)
-            label.layer.backgroundColor = UIColor.blackColor().CGColor
+            label.layer.backgroundColor = UIColor.black.cgColor
             label.layer.cornerRadius = 8
             label.layer.borderWidth = 2
-            label.layer.borderColor = UIColor.lightGrayColor().CGColor
+            label.layer.borderColor = UIColor.lightGray.cgColor
             
             // Decode Base64 string into NSData
-            let imageData = NSData(base64EncodedString: singlePlant.images[i], options: NSDataBase64DecodingOptions(rawValue: 0))
+            let imageData = Data(base64Encoded: singlePlant.images[i], options: NSData.Base64DecodingOptions(rawValue: 0))
             
             // Set image variable to UIImage from raw data
             let imageView = UIImageView(frame: CGRect(x: (i*500), y: 0, width: 500, height: 400))
@@ -86,15 +94,15 @@ class PlantInfoViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
         }
         let scrollViewWidth = CGFloat(singlePlant.images.count * 500)
-        scrollView.contentSize = CGSizeMake(scrollViewWidth, scrollView.frame.size.height);
+        scrollView.contentSize = CGSize(width: scrollViewWidth, height: scrollView.frame.size.height);
         scrollView.layer.borderWidth = 3
         scrollView.layer.cornerRadius = 8
-        scrollView.layer.borderColor = UIColor.greenColor().CGColor
+        scrollView.layer.borderColor = UIColor.green.cgColor
         
     }
     
     
-    func getPlantByName(plantName: String){
+    func getPlantByName(_ plantName: String){
         // loop through all plants in the local database to find the specific plant scanned or chosen from the list
         for i in 0 ..< allPlants.count {
             if allPlants[i].plantName == plantName {
@@ -103,7 +111,7 @@ class PlantInfoViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         }
         
         // Set UILabel properties of a single plant from database
-        plantNameButton.setTitle(singlePlant.plantName, forState: UIControlState.Normal)
+        plantNameButton.setTitle(singlePlant.plantName, for: UIControlState())
         originTextLabel.text = singlePlant.origin
         originTextLabel.numberOfLines = 0
         locationTextLabel.text = singlePlant.location
@@ -112,13 +120,13 @@ class PlantInfoViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         whenToPlantTextLabel.text = singlePlant.whenToPlant
         whenToPlantTextLabel.numberOfLines = 0
         coolFactsTextView.text = singlePlant.coolFact
-        descriptionTextView.editable = false;
-        coolFactsTextView.editable = false;
+        descriptionTextView.isEditable = false;
+        coolFactsTextView.isEditable = false;
     }
     
     // Function for text-to-speech
-    @IBAction func textToSpeech(sender: UIButton) {
-        if !synth.speaking{
+    @IBAction func textToSpeech(_ sender: UIButton) {
+        if !synth.isSpeaking{
             if sender.tag == 0 {
                 myUtterance = AVSpeechUtterance(string: plantNameButton.titleLabel!.text!)
             }
@@ -139,7 +147,7 @@ class PlantInfoViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             }
             
             myUtterance.rate = 0.5
-            synth.speakUtterance(myUtterance)
+            synth.speak(myUtterance)
         }
         else{
             synth.continueSpeaking()
@@ -148,45 +156,45 @@ class PlantInfoViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     // Formatting of the buttons used for text-to-speech
     func customButtons() {
-        plantNameButton.titleLabel?.textColor = UIColor.greenColor()
+        plantNameButton.titleLabel?.textColor = UIColor.green
         plantNameButton.titleLabel?.font = UIFont(name: "Chalkduster", size: 40)
-        plantNameButton.titleLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        plantNameButton.titleLabel?.textAlignment = NSTextAlignment.Center
+        plantNameButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        plantNameButton.titleLabel?.textAlignment = NSTextAlignment.center
         
         originButton.contentEdgeInsets = UIEdgeInsetsMake(10,10,10,10)
-        originButton.backgroundColor = UIColor.lightGrayColor()
+        originButton.backgroundColor = UIColor.lightGray
         originButton.titleLabel?.font = UIFont(name: "Verdana-Bold", size: 20)
         originButton.layer.cornerRadius = 8
         originButton.layer.borderWidth = 2
-        originButton.layer.borderColor = UIColor.blackColor().CGColor
+        originButton.layer.borderColor = UIColor.black.cgColor
         
         locationButton.contentEdgeInsets = UIEdgeInsetsMake(10,10,10,10)
-        locationButton.backgroundColor = UIColor.lightGrayColor()
+        locationButton.backgroundColor = UIColor.lightGray
         locationButton.titleLabel?.font = UIFont(name: "Verdana-Bold", size: 20)
         locationButton.layer.cornerRadius = 8
         locationButton.layer.borderWidth = 2
-        locationButton.layer.borderColor = UIColor.blackColor().CGColor
+        locationButton.layer.borderColor = UIColor.black.cgColor
         
         descriptionButton.contentEdgeInsets = UIEdgeInsetsMake(10,10,10,10)
-        descriptionButton.backgroundColor = UIColor.lightGrayColor()
+        descriptionButton.backgroundColor = UIColor.lightGray
         descriptionButton.titleLabel?.font = UIFont(name: "Verdana-Bold", size: 20)
         descriptionButton.layer.cornerRadius = 8
         descriptionButton.layer.borderWidth = 2
-        descriptionButton.layer.borderColor = UIColor.blackColor().CGColor
+        descriptionButton.layer.borderColor = UIColor.black.cgColor
         
         whenToPlantButton.contentEdgeInsets = UIEdgeInsetsMake(10,10,10,10)
-        whenToPlantButton.backgroundColor = UIColor.lightGrayColor()
+        whenToPlantButton.backgroundColor = UIColor.lightGray
         whenToPlantButton.titleLabel?.font = UIFont(name: "Verdana-Bold", size: 20)
         whenToPlantButton.layer.cornerRadius = 8
         whenToPlantButton.layer.borderWidth = 2
-        whenToPlantButton.layer.borderColor = UIColor.blackColor().CGColor
+        whenToPlantButton.layer.borderColor = UIColor.black.cgColor
         
         coolFactButton.contentEdgeInsets = UIEdgeInsetsMake(10,10,10,10)
-        coolFactButton.backgroundColor = UIColor.lightGrayColor()
+        coolFactButton.backgroundColor = UIColor.lightGray
         coolFactButton.titleLabel?.font = UIFont(name: "Verdana-Bold", size: 20)
         coolFactButton.layer.cornerRadius = 8
         coolFactButton.layer.borderWidth = 2
-        coolFactButton.layer.borderColor = UIColor.blackColor().CGColor
+        coolFactButton.layer.borderColor = UIColor.black.cgColor
         
     }
     

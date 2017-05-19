@@ -21,7 +21,7 @@ class Plant: NSObject, NSCoding {
     var coolFact: String
     var moreFacts: String
     var images: [String]
-    var createdAt: NSDate
+    var createdAt: Date
     var captions: [String]
     
     //init method for new obj instances
@@ -35,35 +35,35 @@ class Plant: NSObject, NSCoding {
         self.moreFacts = ""
         self.images = []
         self.captions = []
-        createdAt = NSDate()
+        createdAt = Date()
     }
     
     // MARK: - NSCoding protocol
     // used for encoding (saving) objects
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(plantName, forKey: "plantName")
-        aCoder.encodeObject(location, forKey: "location")
-        aCoder.encodeObject(origin, forKey: "origin")
-        aCoder.encodeObject(plantDescription, forKey: "plantDescription")
-        aCoder.encodeObject(whenToPlant, forKey: "whenToPlant")
-        aCoder.encodeObject(coolFact, forKey: "coolFact")
-        aCoder.encodeObject(moreFacts, forKey: "moreFacts")
-        aCoder.encodeObject(images, forKey: "images")
-        aCoder.encodeObject(captions, forKey: "captions")
-        aCoder.encodeObject(createdAt, forKey:  "createdAt")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(plantName, forKey: "plantName")
+        aCoder.encode(location, forKey: "location")
+        aCoder.encode(origin, forKey: "origin")
+        aCoder.encode(plantDescription, forKey: "plantDescription")
+        aCoder.encode(whenToPlant, forKey: "whenToPlant")
+        aCoder.encode(coolFact, forKey: "coolFact")
+        aCoder.encode(moreFacts, forKey: "moreFacts")
+        aCoder.encode(images, forKey: "images")
+        aCoder.encode(captions, forKey: "captions")
+        aCoder.encode(createdAt, forKey:  "createdAt")
     }
     // used for decoding (loading) objects
     required init?(coder aDecoder: NSCoder) {
-        plantName = aDecoder.decodeObjectForKey("plantName") as! String
-        location = aDecoder.decodeObjectForKey("location") as! String
-        origin = aDecoder.decodeObjectForKey("origin") as! String
-        plantDescription = aDecoder.decodeObjectForKey("plantDescription") as! String
-        whenToPlant = aDecoder.decodeObjectForKey("whenToPlant") as! String
-        coolFact = aDecoder.decodeObjectForKey("coolFact") as! String
-        moreFacts = aDecoder.decodeObjectForKey("moreFacts") as! String
-        images = aDecoder.decodeObjectForKey("images") as! [String]
-        captions = aDecoder.decodeObjectForKey("captions") as! [String]
-        createdAt = aDecoder.decodeObjectForKey("createdAt") as! NSDate
+        plantName = aDecoder.decodeObject(forKey: "plantName") as! String
+        location = aDecoder.decodeObject(forKey: "location") as! String
+        origin = aDecoder.decodeObject(forKey: "origin") as! String
+        plantDescription = aDecoder.decodeObject(forKey: "plantDescription") as! String
+        whenToPlant = aDecoder.decodeObject(forKey: "whenToPlant") as! String
+        coolFact = aDecoder.decodeObject(forKey: "coolFact") as! String
+        moreFacts = aDecoder.decodeObject(forKey: "moreFacts") as! String
+        images = aDecoder.decodeObject(forKey: "images") as! [String]
+        captions = aDecoder.decodeObject(forKey: "captions") as! [String]
+        createdAt = aDecoder.decodeObject(forKey: "createdAt") as! Date
         super.init()
     }
     

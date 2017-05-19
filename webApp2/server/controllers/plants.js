@@ -1,5 +1,5 @@
 // var mongoose = require('mongoose');
-// var Plant = mongoose.model('plants');
+// var Plant = mongoose.model('Plant');
 var fs = require('fs');
 var all = require("./../../allPlants.json");
 
@@ -137,6 +137,20 @@ module.exports = (function(){
 				imgname3:(req.body.imgname3!="")?req.body.imgname3:"img3",
 				imgname4:(req.body.imgname4!="")?req.body.imgname4:"img4",
 			};
+			res.redirect('/all')
+
+			// var plant = new Plant(newPlant);
+	// 		plant.save(function(err){
+	// 	if(err){
+	// 		console.log('something went wrong');
+	// 	}else{
+	// 		console.log('successfully added a plant');
+	// 		console.log(plant)
+	//
+	// 		// res.json(plant);
+	// 		res.redirect('/all')
+	// 	}
+	// })
 
 			create_unique(newPlant, function(data){
 				if(data == null){
@@ -181,7 +195,7 @@ module.exports = (function(){
 			edit_by_id(req.body.name, updated_plant, function(data){
 				res.redirect('/all');
 			})
-			
+
 		},
 		edit:function(req,res){
 			get_by_id(req.params.name, function(data){
@@ -260,7 +274,7 @@ module.exports = (function(){
 					res.redirect('/all');
 				})
 			})
-			
+
 
 		},
 		restore:function(req,res){
@@ -289,7 +303,7 @@ module.exports = (function(){
 				edit_by_id(req.params.name, updated_plant, function(data){
 					res.redirect('/getArchived');
 				})
-			})		
+			})
 		},
 
 		createSnapshot:function(req,res){
@@ -322,7 +336,7 @@ module.exports = (function(){
 		},
 		removeSnapshot:function(req,res){
 			var filename = req.params.name;
-			var filePath = filename ; 
+			var filePath = filename ;
 			fs.unlinkSync(filePath);
 			console.log(filePath+" removed");
 			res.redirect('/showSnapshot');

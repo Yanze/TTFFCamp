@@ -20,31 +20,42 @@ class HiddenMenuViewController: UIViewController {
     
     
     override func viewDidLoad() {
+        print("HiddenMenuViewController loaded")
         super.viewDidLoad()
-        messageLabel.hidden = true
-        messageLabel.textColor = UIColor.redColor()
+        messageLabel.isHidden = true
+        messageLabel.textColor = UIColor.red
         userInputLabel.attributedPlaceholder = NSAttributedString(string:"Please enter your IP address",
-            attributes:[NSForegroundColorAttributeName: UIColor.grayColor()])
+            attributes:[NSForegroundColorAttributeName: UIColor.gray])
         passwordInput.attributedPlaceholder = NSAttributedString(string:"Please enter your password",
-            attributes:[NSForegroundColorAttributeName: UIColor.grayColor()])
+            attributes:[NSForegroundColorAttributeName: UIColor.gray])
 
         
     }
     
-    @IBAction func clickToSynchronize(sender: UIButton) {
+    @IBAction func clickToSynchronize(_ sender: UIButton) {
         
         let ipCheck = regExIpAddressCheck(userInputLabel.text!)
 
         if ipCheck && passwordInput.text == "ttff" {
+            print("THIS STUFF IS HAPPENING NOW!!!~~~~~~~`")
             messageLabel.text = "Downloading..."
-            messageLabel.textColor = UIColor.blueColor()
-            messageLabel.hidden = false
+            messageLabel.textColor = UIColor.blue
+            messageLabel.isHidden = false
             var successCheck = false
-            
-            Alamofire.request(.GET, "http://\(userInputLabel.text!):8001/getAllPlants")
+                            Alamofire.request("http://54.85.162.0/getAllPlants") /// this is for the aws
+
+//            Alamofire.request("http://\(userInputLabel.text!):8001/getAllPlants") /// this works
+            //Alamofire.request(.GET, "http://\(userInputLabel.text!):8001/getAllPlants") /// this was old not needed
                 .responseJSON { response in
+                    
+                    print("THIS IS THEE RESPONSEEEEEEE",response)
+                    if(response.result.isFailure) {
+                        print("it's a failure!")
+                        print("result",response.result)
+                    }
                     if let JSON = response.result.value {
                         var plantArray = [Plant]()
+                        print("right after platarray is created")
                     
                         // parse JSON data and create new Plant objs and Plant array
                         for anItem in JSON as! [Dictionary<String, AnyObject>] {
@@ -126,7 +137,7 @@ class HiddenMenuViewController: UIViewController {
                             plantArray.append(plantObj)
                                             
                         }
-                        
+                        print("we got to this point!")
                         print("new plant array", plantArray)
                                         
                         Database.save(plantArray, toSchema: Plant.schema, forKey: Plant.key) // save all to local storage
@@ -138,23 +149,23 @@ class HiddenMenuViewController: UIViewController {
                         successCheck = false
                     } else {
                         self.messageLabel.text = "ERROR"
-                        self.messageLabel.textColor = UIColor.redColor()
+                        self.messageLabel.textColor = UIColor.red
                     }
                 }
         }
         else {
             messageLabel.text = "Wrong Entry"
-            messageLabel.hidden = false
-            messageLabel.textColor = UIColor.redColor()
+            messageLabel.isHidden = false
+            messageLabel.textColor = UIColor.red
         }
         
     }
     
     
-    func regExIpAddressCheck(ipAddress: String) -> Bool {
+    func regExIpAddressCheck(_ ipAddress: String) -> Bool {
         let validIpAddressRegex = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
         
-        if ipAddress.rangeOfString(validIpAddressRegex, options: .RegularExpressionSearch) != nil {
+        if ipAddress.range(of: validIpAddressRegex, options: .regularExpression) != nil {
             print("IP is valid")
             return true
         } else {

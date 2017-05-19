@@ -16,9 +16,16 @@ class PlantListTableViewController: UITableViewController, UISearchResultsUpdati
     var searchController = UISearchController(searchResultsController: nil)
     var filteredPlants = [Plant]()
     var detectedText = ""
+    var backDelegate: BackButtonDelegate?
     
+    
+    @IBAction func backButtonPressed(_ sender: Any) {
+        backDelegate?.backButtonPressed(controller: self)
+    }
+
 
     override func viewDidLoad() {
+        print("PlantListTableViewController loaded")
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
@@ -40,17 +47,17 @@ class PlantListTableViewController: UITableViewController, UISearchResultsUpdati
         // Dispose of any resources that can be recreated.
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // dequeue cell from storyboard
-        let cell = tableView.dequeueReusableCellWithIdentifier("PlantCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell")!
         
         // set note variable represent an instance of a Plant
         let plant: Plant
         
         // check to see if user is using the search bar
         // set note variable to represent objects of Plant in each index of array, with the index counting in descending order
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text != "" {
             // use filteredPlants if search is taking place
             plant = filteredPlants[indexPath.row]
         } else {
@@ -67,10 +74,11 @@ class PlantListTableViewController: UITableViewController, UISearchResultsUpdati
         return cell
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("1!~~~~~",section)
         allPlants = Database.all()
         
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text != "" {
             return filteredPlants.count
         }
         
@@ -79,30 +87,36 @@ class PlantListTableViewController: UITableViewController, UISearchResultsUpdati
     
     
     // SEARCH BAR FUNCTIONS
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         filteredPlants = allPlants.filter { plant in
-            return plant.plantName.lowercaseString.containsString(searchText.lowercaseString)
+            return plant.plantName.lowercased().contains(searchText.lowercased())
         }
         
         tableView.reloadData()
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selected ",indexPath)
+    }
     
     // Prepare segue to Plant Info View
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier! == "showInfoFromList"){
+            print("segue is about to start!")
             
-            let plantInfoVC = segue.destinationViewController as! PlantInfoViewController
+            let plantInfoVC = segue.destination as! PlantInfoViewController
             
             // Sender is the cell that gets selected by the user
+            print("sender is: ",sender!)
             let cell = sender as! UITableViewCell
             
             // Unwrap the text from the cell and pass it through the segue to the PlantInfoViewController
             if let text = cell.textLabel!.text {
+                print("TEXT IS :",text)
                 plantInfoVC.detectedText = text
             }
 

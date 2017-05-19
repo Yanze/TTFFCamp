@@ -1,0 +1,9 @@
+[
+{name: "Strawberry Tree", sciName: "Arbutus Unedo", location: "Bay Area Natives", origin: "Mediterranean", plantTime: "Spring", fact:"The bark of the tree is used as a dye for working leather because it contains ligh levels of tannins."}
+,
+{name: "Buddleia", location: "Bay Area Natives", origin: "Asia, Africa, and the Americas",plantTime:"Spring or Fall",fact:"Known as the 'Butterfly Bush', it also attracts bees and moths"}
+,
+{name: "Pride of Madeira", location: "Bay Area Natives",origin: "Madeira",plantTime:"Spring",fact:"The root of the genus name comes from the ancient Greek word meaning 'viper'. Some think this refers to the fact that the seed resembles a viper's head, or from an old belief that a related plant was a remedy for the snake's bite."}
+]
+
+{"plantName": "","sciName":"","location": "","origin": "","plantTime":"","fact":""}
